@@ -31,12 +31,12 @@ constructor() {
     @Inject
     lateinit var movieDatabase: DatabaseModule.MovieDatabase
 
-    private val movieListFetchLimiter: FetchLimiter<*>
+    private val movieListFetchLimiter: FetchLimiter
 
     init {
         BaseApp.dataLayerComponent.doInjection(this)
         movieListFetchLimiter =
-            FetchLimiter<String>(10, TimeUnit.MINUTES)
+            FetchLimiter(10, TimeUnit.MINUTES)
     }
 
     fun loadMovieList(searchString: String, forceRefresh: Boolean): LiveData<DataRequest<List<Movie>>> {

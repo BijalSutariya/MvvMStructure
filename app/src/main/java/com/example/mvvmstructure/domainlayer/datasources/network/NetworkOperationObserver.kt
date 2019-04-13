@@ -8,8 +8,8 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 open class NetworkOperationObserver constructor(
-    var responseFromNetwork: MutableLiveData<DataRequest<Response>>,
-    var dataManager: DataManager<*, *>
+    private var responseFromNetwork: MutableLiveData<DataRequest<Response>>,
+    private var dataManager: DataManager<*, *>
 ) : Observer<Response> {
 
     override fun onSubscribe(d: Disposable) {
@@ -17,7 +17,7 @@ open class NetworkOperationObserver constructor(
     }
 
     override fun onNext(response: Response) {
-        responseFromNetwork.setValue(DataRequest.success(response))
+        responseFromNetwork.value = DataRequest.success(response)
     }
 
     override fun onError(e: Throwable) {

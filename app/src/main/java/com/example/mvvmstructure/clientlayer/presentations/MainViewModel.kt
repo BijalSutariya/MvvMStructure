@@ -9,7 +9,7 @@ import com.example.mvvmstructure.domainlayer.repositories.MovieRepository
 import com.example.mvvmstructure.domainlayer.DataRequest
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(var repository: MovieRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private var repository: MovieRepository) : ViewModel() {
 
     private var movieIdLiveData: MutableLiveData<String> = MutableLiveData()
     private var movieSearchStringLiveData: MutableLiveData<String> = MutableLiveData()

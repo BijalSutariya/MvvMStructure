@@ -75,7 +75,7 @@ class ListFragment : Fragment(), ViewController {
         snapHelper.attachToRecyclerView(listFragmentBinding.movieListRecyclerView)
     }
 
-    /*override fun onPause() {
+    override fun onPause() {
         super.onPause()
         val bundle = Bundle()
         bundle.putParcelable(
@@ -83,7 +83,7 @@ class ListFragment : Fragment(), ViewController {
             Objects.requireNonNull(listFragmentBinding.movieListRecyclerView.layoutManager)?.onSaveInstanceState()
         )
         arguments = bundle
-    }*/
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -118,10 +118,10 @@ class ListFragment : Fragment(), ViewController {
     abstract inner class MovieListAdapter internal constructor() :
         RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
 
-        var movieList: List<Movie>
+        private var movieList: List<Movie>
 
         init {
-            this.movieList = ArrayList<Movie>()
+            this.movieList = ArrayList()
         }
 
         internal fun setMovieList(movieList: List<Movie>) {
@@ -139,7 +139,7 @@ class ListFragment : Fragment(), ViewController {
 
         override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
             val movie = movieList[position]
-            holder.movieItemBinding.getRoot().setOnClickListener { onMovieItemClicked(movie.imdbID) }
+            holder.movieItemBinding.root.setOnClickListener { onMovieItemClicked(movie.imdbID) }
             holder.bind(movie)
         }
 
@@ -149,10 +149,10 @@ class ListFragment : Fragment(), ViewController {
 
 
         inner class MovieListViewHolder(val movieItemBinding: MovieItemBinding) :
-            RecyclerView.ViewHolder(movieItemBinding.getRoot()) {
+            RecyclerView.ViewHolder(movieItemBinding.root) {
 
             fun bind(movie: Movie) {
-                movieItemBinding.setMovie(movie)
+                movieItemBinding.movie = movie
                 movieItemBinding.executePendingBindings()
             }
         }

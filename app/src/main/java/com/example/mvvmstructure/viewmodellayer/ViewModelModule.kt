@@ -1,7 +1,6 @@
 package com.example.mvvmstructure.viewmodellayer
 
 import com.example.mvvmstructure.domainlayer.repositories.MovieRepository
-import com.example.mvvmstructure.viewmodellayer.ViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -5,9 +5,9 @@ import okhttp3.HttpUrl
 object ApiUrls {
 
     private var httpUrl: HttpUrl.Builder? = null
-    private val authority = "www.omdbapi.com"
-    private val protocolScheme = "http"
-    val apiToken = "13b629a1"
+    private const val authority = "www.omdbapi.com"
+    private const val protocolScheme = "http"
+    const val apiToken = "13b629a1"
 
     private val httpUrlBuilder: HttpUrl.Builder
         get() {

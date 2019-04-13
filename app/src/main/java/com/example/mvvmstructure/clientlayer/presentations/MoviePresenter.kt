@@ -3,40 +3,40 @@ package com.example.mvvmstructure.clientlayer.presentations
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.mvvmstructure.domainlayer.model.Movie
 import com.example.mvvmstructure.domainlayer.DataRequest
+import com.example.mvvmstructure.domainlayer.model.Movie
 
 class MoviePresenter(
-    var mainViewModel: MainViewModel,
-    var viewController: ViewController,
-    var presenterType: PresenterType
+    mainViewModel: MainViewModel,
+    private var viewController: ViewController,
+    private var presenterType: PresenterType
 ) {
-    private var isLoading: MutableLiveData<Boolean>
+    private var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     private lateinit var movieSearchStringLiveData: MutableLiveData<String>
     private lateinit var movieIdLiveData: MutableLiveData<String>
     private lateinit var movieList: MutableLiveData<List<Movie>>
     private lateinit var movie: MutableLiveData<Movie>
 
     init {
-        this.viewController = viewController
-        this.presenterType = presenterType
-        isLoading = MutableLiveData()
         if (this.presenterType == PresenterType.LIST) {
             movieList = MutableLiveData()
             movieSearchStringLiveData = mainViewModel.getObservableMovieSearchString()
-            mainViewModel.getObservableMovieList().observe(viewController.getLifeCycleOwner(), Observer<DataRequest<List<Movie>>> { this.consumeResponse(it) })
+            mainViewModel.getObservableMovieList().observe(
+                viewController.getLifeCycleOwner(),
+                Observer<DataRequest<List<Movie>>> { this.consumeResponse(it) })
         } else {
             movie = MutableLiveData()
             movieIdLiveData = mainViewModel.getObservableMovieIdString()
-            mainViewModel.getObservableMovie().observe(viewController.getLifeCycleOwner(), Observer<DataRequest<Movie>> { this.consumeResponse(it) })
+            mainViewModel.getObservableMovie()
+                .observe(viewController.getLifeCycleOwner(), Observer<DataRequest<Movie>> { this.consumeResponse(it) })
         }
     }
 
-    fun consumeResponse(dataRequest: DataRequest<*>) {
+    private fun consumeResponse(dataRequest: DataRequest<*>) {
         when (dataRequest.currentState) {
             DataRequest.Status.LOADING -> {
 
-                isLoading.setValue(true)
+                isLoading.value = true
                 if (presenterType == PresenterType.LIST) {
                     movieList.value = dataRequest.data as List<Movie>?
                 } else {
@@ -48,7 +48,7 @@ class MoviePresenter(
             }
             DataRequest.Status.SUCCESS -> {
 
-                isLoading.setValue(false)
+                isLoading.value = false
 
                 if (presenterType == PresenterType.LIST) {
                     movieList.value = dataRequest.data as List<Movie>?
@@ -56,7 +56,7 @@ class MoviePresenter(
 
 
                 } else {
-                    movie.setValue(dataRequest.data as Movie)
+                    movie.value = dataRequest.data as Movie
                     Log.d("movie List", "" + movie)
 
                 }
@@ -65,7 +65,7 @@ class MoviePresenter(
                 viewController.onSucceed()
             }
             DataRequest.Status.ERROR -> {
-                isLoading.setValue(false)
+                isLoading.value = false
                 viewController.onErrorOccurred("Error")
                 Log.d("movie List", "" + dataRequest.currentState)
             }

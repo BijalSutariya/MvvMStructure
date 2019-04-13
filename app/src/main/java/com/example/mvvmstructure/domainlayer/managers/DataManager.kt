@@ -8,12 +8,11 @@ import io.reactivex.annotations.Nullable
 
 abstract class DataManager<RequestType, ResultType> protected constructor(var taskExecutors: TaskExecutors) {
 
-    private val result: MediatorLiveData<DataRequest<ResultType>>
+    private val result: MediatorLiveData<DataRequest<ResultType>> = MediatorLiveData()
 
     init {
-        result = MediatorLiveData()
         result.setValue(DataRequest.loading(null))
-        val sourceDatabase = loadFromDatabase()
+        val sourceDatabase = this.loadFromDatabase()
         result.addSource(sourceDatabase) { data ->
             result.removeSource(sourceDatabase)
             if (shouldFetchData(data)) {
@@ -83,7 +82,7 @@ abstract class DataManager<RequestType, ResultType> protected constructor(var ta
      * Updates the live data which we are interested in.*/
     private fun setValue(newValue: DataRequest<ResultType>) {
         if (result.value !== newValue) {
-            result.setValue(newValue)
+            result.value = newValue
         }
     }
 

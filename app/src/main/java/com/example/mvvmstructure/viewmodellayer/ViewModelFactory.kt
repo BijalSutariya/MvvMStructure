@@ -15,7 +15,7 @@ class ViewModelFactory
      *
      * Therefore we must provide repository from other way.*/
 @Inject
-constructor(val repository: MovieRepository) : ViewModelProvider.Factory {
+constructor(private val repository: MovieRepository) : ViewModelProvider.Factory {
 
 
     @NonNull

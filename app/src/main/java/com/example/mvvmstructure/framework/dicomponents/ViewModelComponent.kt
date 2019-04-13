@@ -1,8 +1,8 @@
 package com.example.mvvmstructure.framework.dicomponents
 
 import com.example.mvvmstructure.clientlayer.presentations.fragment.DetailsFragment
-import com.example.mvvmstructure.viewmodellayer.ViewModelModule
 import com.example.mvvmstructure.clientlayer.presentations.fragment.ListFragment
+import com.example.mvvmstructure.viewmodellayer.ViewModelModule
 import dagger.Component
 import javax.inject.Singleton
 

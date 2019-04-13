@@ -9,7 +9,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule constructor(var context: Context) {
+class DatabaseModule constructor(private var context: Context) {
 
     @Provides
     @Singleton

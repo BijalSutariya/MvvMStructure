@@ -17,7 +17,7 @@ class BaseApp : Application() {
         setViewModelComponent()
     }
 
-    protected fun setDataLayerComponent() {
+    private fun setDataLayerComponent() {
         dataLayerComponent = DaggerDataLayerComponent.builder()
             .networkModule(NetworkModule(this))
             .databaseModule(DatabaseModule(this))
@@ -33,7 +33,7 @@ class BaseApp : Application() {
     companion object {
 
         lateinit var dataLayerComponent: DataLayerComponent
-            protected set
+            private set
 
         lateinit var viewModelComponent: ViewModelComponent
             private set

@@ -6,7 +6,7 @@ import java.util.HashMap
 import java.util.concurrent.TimeUnit
 /*
  * Stores what request we executed and when.*/
-class FetchLimiter<KEY> (timeOut: Int, timeUnit: TimeUnit) {
+class FetchLimiter(timeOut: Int, timeUnit: TimeUnit) {
     private val timestamps: MutableMap<String, Long>
     private val timeOut: Long
 
