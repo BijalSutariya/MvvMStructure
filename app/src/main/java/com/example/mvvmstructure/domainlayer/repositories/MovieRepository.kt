@@ -111,29 +111,6 @@ constructor() {
             override fun processResponse(response: Response): Movie? {
                 return null
             }
-            /*   override fun loadFromDatabase(): LiveData<Movie> {
-                   return movieDatabase.movieDao().getMovie(movieId)
-               }
-
-               override fun loadFromNetwork(): LiveData<Response> {
-                   return null
-               }
-
-               override fun shouldFetchData(data: Movie): Boolean {
-                   return false
-               }
-
-               override fun saveDataToDatabase(data: Movie) {
-
-               }
-
-               protected fun processResponse(response: Response): Movie? {
-                   return null
-               }
-
-               protected fun clearPreviousData() {
-
-               }*/
         }.toLiveData()
     }
 }
